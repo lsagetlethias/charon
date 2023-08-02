@@ -12,13 +12,16 @@ Charon is an intermediary application that enables dynamic OAuth2 client applica
 
 - **Secure:** Charon ensures that the client secret and the client ID are sent by the dynamic clients and not borne by the intermediary application.
 
+- **Logout Handling:** Provides seamless logout process by integrating with OIDC providers' signout mechanisms and then redirecting users appropriately.
+
+
 ## Getting Started
 
 ### Prerequisites
 
 Before you begin, ensure you have met the following requirements:
 
-- You have installed [Node.js](https://nodejs.org/) and [npm](https://www.npmjs.com/).
+- You have installed [Node.js](https://nodejs.org/) and [yarn](https://yarnpkg.com/) (or [npm](https://www.npmjs.com/)).
 
 - You have a basic understanding of TypeScript and OAuth2.
 
@@ -34,7 +37,7 @@ Before you begin, ensure you have met the following requirements:
 
     ```bash
     cd charon
-    npm install
+    yarn
     ```
 
 ### Usage
@@ -45,7 +48,7 @@ Before you begin, ensure you have met the following requirements:
     npm start
     ```
 
-2. Open your browser and navigate to `http://localhost:3000`.
+2. Open your browser and navigate to `http://localhost:4500`.
 
 Please note, you'll need to configure the application to work with your specific OAuth2 clients and OIDC providers.
 

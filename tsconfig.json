@@ -1,0 +1,22 @@
+{
+  "extends": "@tsconfig/node20",
+  "compilerOptions": {
+    "outDir": "./dist",
+    "resolveJsonModule": true,
+    "baseUrl": "./src",
+    "paths": {
+      "@common/*": [
+        "/common/*"
+      ],
+    }
+  },
+  "ts-node": {
+    "compilerOptions": {
+      "module": "CommonJS"
+    },
+    "transpileOnly": true,
+    "require": [
+      "tsconfig-paths/register"
+    ]
+  }
+}

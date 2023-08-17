@@ -1,7 +1,6 @@
 {
   "extends": "@tsconfig/node20",
   "compilerOptions": {
-    "outDir": "./dist",
     "resolveJsonModule": true,
   },
   "ts-node": {
@@ -12,12 +11,5 @@
     "require": [
       "tsconfig-paths/register"
     ]
-  },
-  "include": [
-    "env.d.ts",
-    "src/**/*.ts",
-  ],
-  "exclude": [
-    "node_modules",
-  ]
+  }
 }

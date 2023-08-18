@@ -1,6 +1,7 @@
 import { bodyParser } from "@koa/bodyparser";
 import cors from "@koa/cors";
 import Koa from "koa";
+import proxy from "koa-better-http-proxy";
 import session from "koa-session";
 
 import { type CharonClient } from "./client/types";
@@ -20,7 +21,17 @@ declare module "koa-session" {
 
 // Configuration de l'application Koa
 const app = new Koa();
-app.keys = [config.security.cookieSecret];
+
+// Proxy
+if (config.security.proxy) {
+  app.use(
+    proxy(config.security.proxy.host, {
+      port: config.security.proxy.port,
+    }),
+  );
+}
+
+app.keys = [config.security.cookie.secret];
 
 app.use(async (ctx, next) => {
   try {
@@ -39,9 +50,10 @@ app.use(bodyParser());
 app.use(
   session(
     {
-      sameSite: "lax",
-      secure: config.app.host.startsWith("https"), // important for POST requests with redirect
-      key: config.security.cookieName,
+      sameSite: config.security.cookie.sameSite ?? undefined,
+      secure: config.security.cookie.secure,
+      key: config.security.cookie.key,
+      signed: config.security.cookie.signed,
     },
     app,
   ),

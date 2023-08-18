@@ -53,6 +53,7 @@
     "dotenv": "^16.3.1",
     "http-proxy": "^1.18.1",
     "koa": "^2.14.2",
+    "koa-better-http-proxy": "^0.2.10",
     "koa-session": "^6.4.0"
   }
 }

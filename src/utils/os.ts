@@ -14,7 +14,7 @@ type EnsureEnvVar = {
   <T extends primitive | primitive[] = string>(envKey: EnvKey, transformer: (envVar: string) => T): T;
   <T extends primitive | primitive[] = string>(envKey: EnvKey, transformer: (envVar: string) => T, defaultValue: T): T;
 };
-type primitive = boolean | number | string;
+type primitive = boolean | number | string | null;
 
 const ensureEnvVar_ = ((envKey, transformerOrDefaultValue_, defaultValue_) => {
   const envVar = process.env[envKey];

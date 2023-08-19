@@ -1,7 +1,6 @@
 import { bodyParser } from "@koa/bodyparser";
 import cors from "@koa/cors";
 import Koa from "koa";
-import proxy from "koa-better-http-proxy";
 import session from "koa-session";
 
 import { type CharonClient } from "./client/types";
@@ -24,11 +23,14 @@ const app = new Koa();
 
 // Proxy
 if (config.security.proxy) {
-  app.use(
-    proxy(config.security.proxy.host, {
+  app.use(async (ctx, next) => {
+    const proxy = (await import("koa-better-http-proxy")).default;
+    const middleware = proxy(config.security.proxy.host, {
       port: config.security.proxy.port,
-    }),
-  );
+    });
+
+    return middleware(ctx, next) as never;
+  });
 }
 
 app.keys = [config.security.cookie.secret];

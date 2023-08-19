@@ -16,17 +16,7 @@ export const config = {
   security: {
     cookie: {
       secret: ensureEnvVar("CHARON_COOKIE_SECRET"),
-      key: "charon:sess",
-      secure: ensureEnvVar("CHARON_COOKIE_SECURE", isTruthy, process.env.NODE_ENV === "production"),
-      sameSite: ensureEnvVar<"none" | "lax" | "strict" | null>(
-        "CHARON_COOKIE_SAMESITE",
-        val => {
-          if (["none", "lax", "strict"].includes(val)) return val as "none" | "lax" | "strict";
-          throw new Error("Invalid value for CHARON_COOKIE_SAMESITE");
-        },
-        null,
-      ),
-      signed: ensureEnvVar("CHARON_COOKIE_SIGNED", isTruthy, process.env.NODE_ENV === "production"),
+      key: "charon.sess",
     },
     proxy: {
       enabled: ensureEnvVar("CHARON_PROXY", isTruthy, false),

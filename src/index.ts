@@ -49,17 +49,18 @@ app.use(async (ctx, next) => {
 app.use(cors({ credentials: true, origin: config.app.host }));
 app.use(bodyParser());
 
-app.use(
-  session(
+app.use((ctx, next) => {
+  const middleware = session(
     {
-      sameSite: config.security.cookie.sameSite ?? undefined,
-      secure: config.security.cookie.secure,
+      sameSite: "lax",
+      secure: process.env.NODE_ENV === "production" ? ctx.request.protocol === "https" : false,
       key: config.security.cookie.key,
-      signed: config.security.cookie.signed,
     },
     app,
-  ),
-);
+  );
+
+  return middleware(ctx, next) as never;
+});
 
 controllers(app);
 

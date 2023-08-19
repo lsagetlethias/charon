@@ -1,7 +1,9 @@
 import { bodyParser } from "@koa/bodyparser";
 import cors from "@koa/cors";
 import Koa from "koa";
+import proxy from "koa-better-http-proxy";
 import session from "koa-session";
+import { inspect } from "util";
 
 import { type CharonClient } from "./client/types";
 import { config } from "./config";
@@ -22,15 +24,13 @@ declare module "koa-session" {
 const app = new Koa();
 
 // Proxy
-if (config.security.proxy) {
-  app.use(async (ctx, next) => {
-    const proxy = (await import("koa-better-http-proxy")).default;
-    const middleware = proxy(config.security.proxy.host, {
+if (config.security.proxy.enabled) {
+  logServer("Proxy enabled", { proxyConfig: config.security.proxy });
+  app.use(
+    proxy(config.security.proxy.host, {
       port: config.security.proxy.port,
-    });
-
-    return middleware(ctx, next) as never;
-  });
+    }),
+  );
 }
 
 app.keys = [config.security.cookie.secret];
@@ -65,5 +65,5 @@ controllers(app);
 
 app.listen(config.app.port, () => {
   console.info(`Charon boot on ${config.app.host}`);
-  logServer({ config });
+  logServer(inspect({ config }, { depth: Infinity, colors: true }));
 });

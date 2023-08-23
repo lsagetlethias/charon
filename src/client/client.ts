@@ -8,5 +8,9 @@ export function getCharonClients(): CharonClient[] {
       wildcards: ["http://localhost:3000", "https://egapro-*.dev.fabrique.social.gouv.fr"],
       provider: "github",
     },
+    {
+      wildcards: ["http://localhost:3000", "https://secretariat-*.dev.fabrique.social.gouv.fr"],
+      provider: "github",
+    },
   ];
 }

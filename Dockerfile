@@ -11,6 +11,11 @@ COPY src ./src
 ARG CHARON_PORT=4500
 ENV CHARON_PORT=${CHARON_PORT}
 
+ARG BUILD_DATE
+ARG VCS_REF
+ARG VERSION
+ENV CHARON_VERSION="${VERSION}-${VCS_REF} (${BUILD_DATE})"
+
 RUN yarn install --frozen-lockfile
 RUN yarn build && \
     yarn install --production

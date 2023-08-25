@@ -17,9 +17,27 @@ declare namespace NodeJS {
          * {@link [Local Env Dist](.env.dist)}
          */
         CHARON_PORT?: string;
+        /**
+         * Dist: `/healthz`  
+         * {@link [Local Env Dist](.env.dist)}
+         */
+        CHARON_HEALTHCHECK_PATH?: string;
+        /**
+         * Dist: `false`  
+         * {@link [Local Env Dist](.env.dist)}
+         */
+        CHARON_HEALTHCHECK_SIMPLE?: string;
+        /**
+         * No dist value.  
+         * {@link [Local Env Dist](.env.dist)}
+         */
+        CHARON_VERSION?: string;
     }
 }
 declare type ProcessEnvCustomKeys = 
     | 'CHARON_COOKIE_SECRET'
     | 'CHARON_PUBLIC_HOST'
-    | 'CHARON_PORT';
+    | 'CHARON_PORT'
+    | 'CHARON_HEALTHCHECK_PATH'
+    | 'CHARON_HEALTHCHECK_SIMPLE'
+    | 'CHARON_VERSION';

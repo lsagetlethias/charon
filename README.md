@@ -17,43 +17,22 @@ Charon is an intermediary application that enables dynamic OAuth2 client applica
 
 ## Getting Started
 
-### Prerequisites
+1. A Docker image is available on Docker Hub: https://hub.docker.com/r/lsagetlethias/charon
 
-Before you begin, ensure you have met the following requirements:
+2. Run the image
 
-- You have installed [Node.js](https://nodejs.org/) and [yarn](https://yarnpkg.com/) (or [npm](https://www.npmjs.com/)).
+3. Open your browser and navigate to `http://localhost:4500/healthz` to check if Charon is running. (`4500` is the default port)
 
-- You have a basic understanding of TypeScript and OAuth2.
+### Available env vars
+- `CHARON_COOKIE_SECRET`: (**mandatory**) A unique key to encode cookies (`openssl rand -base64 32`)
+- `CHARON_PUBLIC_HOST=http://localhost:4500`: The public host called by your client, port included if not 80.
+- `CHARON_PORT=4500`: Port on which Charon is running
+- `CHARON_HEALTHCHECK_PATH=/healthz`: Custom path for healthcheck
+- `CHARON_HEALTHCHECK_SIMPLE=false`: If set to true, the healthcheck route will return 200 OK, otherwise detailed json
 
-### Installation
-
-1. Clone the repository:
-
-    ```bash
-    git clone https://github.com/lsagetlethias/charon.git
-    ```
-
-2. Install the dependencies:
-
-    ```bash
-    cd charon
-    yarn
-    ```
-
-### Usage
-
-1. Run the server:
-
-    ```bash
-    npm start
-    ```
-
-2. Open your browser and navigate to `http://localhost:4500`.
-
-Please note, you'll need to configure the application to work with your specific OAuth2 clients and OIDC providers.
+The `CHARON_VERSION` is used for the header `X-Charon-Version`. It should preferably not be overridden.
 
 ## Contributing
-
 Contributions, issues, and feature requests are welcome! Feel free to check the [issues page](https://github.com/lsagetlethias/charon/issues).
 
 ## License

@@ -12,6 +12,11 @@ export const config = {
     charonUrl(uri = "", params?: Record<string, string>): string {
       return `${this.host}/${lstrip(uri, "/")}${params ? `?${new URLSearchParams(params).toString()}` : ""}`;
     },
+    version: ensureEnvVar("CHARON_VERSION", process.env.NODE_ENV === "development" ? "dev" : "unknown"),
+    healthcheck: {
+      path: ensureEnvVar("CHARON_HEALTHCHECK_PATH", "/healthz"),
+      simple: ensureEnvVar("CHARON_HEALTHCHECK_SIMPLE", isTruthy, false),
+    },
   },
   security: {
     cookie: {

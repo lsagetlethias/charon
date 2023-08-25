@@ -1,7 +1,7 @@
 - [ ] store client config somewhere (file, db, redis, env var)
 - [ ] better logging
 - [ ] sentry ?
-- [ ] expose charon version in headers (version + sha)
-- [ ] root "/" page
+- [x] expose charon version in headers (version + sha)
+- [x] root "/" page
 - [ ] for now, we're forwarding client ID and client secret to oidc provider (more like a "on your own" mode). We may need to add a "paying" mode where we store those secrets on our side, and give a charon secret to consumer with ttl validity to add more security
 - [ ] provider custom config based

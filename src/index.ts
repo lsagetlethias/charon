@@ -7,7 +7,7 @@ import { inspect } from "util";
 
 import { type CharonClient } from "./client/types";
 import { config } from "./config";
-import { controllers } from "./controllers";
+import { controller } from "./controller";
 import { type ProviderType } from "./provider";
 import { logServer } from "./utils/logger";
 
@@ -62,7 +62,7 @@ app.use((ctx, next) => {
   return middleware(ctx, next) as never;
 });
 
-controllers(app);
+controller(app);
 
 app.listen(config.app.port, () => {
   console.info(`Charon boot on ${config.app.host}`);

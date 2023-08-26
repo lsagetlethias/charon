@@ -1,15 +1,16 @@
 import axios from "axios";
 
+import { type WellKnown } from "../../utils/well-known";
 import { type Provider } from "../Provider";
 
-const base = (test = false): Provider => ({
-  getIssuer(uri = "", params?: Record<string, string>): string {
-    const baseUrl = test ? "https://app-test.moncomptepro.beta.gouv.fr" : "https://app.moncomptepro.beta.gouv.fr";
-    return `${baseUrl}/${uri.replace(/^\//, "")}${params ? `?${new URLSearchParams(params).toString()}` : ""}`;
+const base = (testServer = false): Provider => ({
+  getIssuer(pathname = "", params?: Record<string, string>): string {
+    const baseUrl = testServer ? "https://app-test.moncomptepro.beta.gouv.fr" : "https://app.moncomptepro.beta.gouv.fr";
+    return `${baseUrl}/${pathname.replace(/^\//, "")}${params ? `?${new URLSearchParams(params).toString()}` : ""}`;
   },
 
-  async getWellKnown(): Promise<object> {
-    const providerWellKnown = await axios.get<object>(this.getIssuer(".well-known/openid-configuration"));
+  async getWellKnown(): Promise<WellKnown> {
+    const providerWellKnown = await axios.get<WellKnown>(this.getIssuer(".well-known/openid-configuration"));
 
     return providerWellKnown.data;
   },

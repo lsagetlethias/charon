@@ -23,7 +23,7 @@ const ensureEnvVar_ = ((envKey, transformerOrDefaultValue_, defaultValue_) => {
   const defaultValue = typeof transformerOrDefaultValue_ !== "function" ? transformerOrDefaultValue_ : defaultValue_;
   if (typeof envVar === "undefined") {
     if (typeof defaultValue === "undefined") {
-      throw new Error(`Some env var are not found.`, { cause: { envVar, transformer, defaultValue } });
+      throw new Error(`"${envKey}" var is not found.`, { cause: { envVar, transformer, defaultValue } });
     }
 
     return defaultValue;

@@ -2,6 +2,8 @@ import dotenv from "dotenv";
 
 dotenv.config();
 
+import { times } from "lodash";
+
 import { ensureEnvVar } from "./utils/os";
 import { isTruthy, lstrip } from "./utils/string";
 
@@ -31,3 +33,31 @@ export const config = {
   },
   providers: ["github", "moncomptepro", "moncompteprotest"] as const,
 } as const;
+
+export const envClientConfig = times(10)
+  .map(i => {
+    const wildcards = process.env[`CHARON_CLIENT_${i}_WILDCARDS`];
+    const provider = process.env[`CHARON_CLIENT_${i}_PROVIDER`];
+
+    if (provider && !wildcards) {
+      console.warn(`Missing wildcards for env based client ${i} (found only provider). Skipping.`);
+      return;
+    }
+
+    if (wildcards && !provider) {
+      console.warn(`Missing provider for env based client ${i} (found only wildcards). Skipping.`);
+      return;
+    }
+
+    if (typeof wildcards === "undefined" && typeof provider === "undefined") return;
+
+    if (!config.providers.includes(provider as (typeof config.providers)[number])) {
+      console.warn(`Unknown given provider for client ${i} config.`);
+    }
+
+    return {
+      wildcards: wildcards?.split(",").map(wildcard => wildcard.trim()),
+      provider,
+    };
+  })
+  .filter(elt => elt);

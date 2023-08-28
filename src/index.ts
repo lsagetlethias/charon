@@ -6,7 +6,7 @@ import session from "koa-session";
 import { inspect } from "util";
 
 import { type CharonClient } from "./client/types";
-import { config } from "./config";
+import { config, envClientConfig } from "./config";
 import { controller } from "./controller";
 import { type ProviderType } from "./provider";
 import { logServer } from "./utils/logger";
@@ -66,5 +66,5 @@ controller(app);
 
 app.listen(config.app.port, () => {
   console.info(`Charon boot on ${config.app.host}`);
-  logServer(inspect({ config }, { depth: Infinity, colors: true }));
+  logServer(inspect({ config, envClientConfig }, { depth: Infinity, colors: true }));
 });

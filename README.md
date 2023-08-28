@@ -32,6 +32,25 @@ Charon is an intermediary application that enables dynamic OAuth2 client applica
 
 The `CHARON_VERSION` is used for the header `X-Charon-Version`. It should preferably not be overridden.
 
+## OAuth configuration
+When using Charon, you need to configure your OAuth client to use Charon as the OAuth provider. Depending on which "original provider" Charon has to forward request to, you need to set change the issuer to: `https://<charonurl>/<provider>`. For example, if you want to use Charon to authenticate with Github, and Charon is deployed on `https://charon.example.com`, you need to set the issuer to `https://charon.example.com/github`.
+
+.well-known openid configuration is recommended (easier to set up), and is available at `https://<charonurl>/<provider>/.well-known/openid-configuration` if the original provider supports it. For example, `https://charon.example.com/moncompteprotest/.well-known/openid-configuration`.
+
+To configure the callback URL, you simply need to set it to `https://<charonurl>/oauth/callback`. For example, `https://charon.example.com/oauth/callback`.
+
+## Client Configuration
+### Env based
+Up to 10 clients (from 0 to 9) can be configured using env vars. For each client, the following env vars are required:
+- `CHARON_CLIENT_<number>_WILDCARDS`: comma separated list of host with or without wildcard that Charon will let forward to associated OAuth provider. Example: `https://*.example.com,http://localhost:3000`
+- `CHARON_CLIENT_<number>_PROVIDER`: OIDC provider name. Example: `github`
+
+For now, a provider should be configured one time only. (You can't have two clients configuration with the same provider)
+
+## Available OIDC providers
+- [`github`](https://github.com)
+- [`moncomptepro`](https://moncomptepro.beta.gouv.fr/) (and `moncompteprotest` for testing)
+
 ## Contributing
 Contributions, issues, and feature requests are welcome! Feel free to check the [issues page](https://github.com/lsagetlethias/charon/issues).
 

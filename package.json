@@ -1,6 +1,6 @@
 {
   "name": "charon",
-  "version": "1.3.0",
+  "version": "1.4.0",
   "description": "Charon is a dynamic OAuth2 routing application designed to facilitate authentication through different OIDC providers while preserving the flexibility of changing callback URLs.",
   "main": "index.js",
   "repository": "git@github.com:lsagetlethias/charon.git",
